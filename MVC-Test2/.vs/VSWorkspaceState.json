@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Assets",
+    "\\Assets\\Game",
+    "\\Assets\\Game\\Scripts",
+    "\\Assets\\Game\\Scripts\\Application",
+    "\\Assets\\Game\\Scripts\\Application\\1.Model",
+    "\\Assets\\Game\\Scripts\\Application\\Data",
+    "\\Assets\\Game\\Scripts\\Application\\StaticData",
+    "\\Assets\\Game\\Scripts\\Framework",
+    "\\Assets\\Game\\Scripts\\Framework\\Sound"
+  ],
+  "SelectedNode": "\\Assets\\Game\\Scripts\\Application\\2.View",
+  "PreviewInSolutionExplorer": false
+}
