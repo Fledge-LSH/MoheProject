@@ -10,4 +10,6 @@ public class Consts
     public const string V_Bag = "V_Bag";
 
     //Controller;
+    public const string E_AddObject = "E_AddObject";//AddObjectArgs
+    public const string E_StartUp = "E_StartUp";
 }

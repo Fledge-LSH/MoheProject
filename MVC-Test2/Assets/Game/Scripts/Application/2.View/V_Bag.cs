@@ -1,0 +1,38 @@
+﻿using System;
+using System.Collections.Generic;
+
+public class V_Bag : View
+{
+
+
+
+    public override string Name 
+    {
+        get { return Consts.V_Bag; }
+    }
+
+    void LoadObject() 
+    {
+
+    }
+    public override void RegisterEvents() 
+    {
+        AttentionEvents.Add(Consts.E_AddObject);
+    }
+    public override void HandleEvent(string eventName, object data)
+    {
+        switch (eventName) 
+        {
+            case Consts.E_AddObject:
+                AddObjectArgs e0 = data as AddObjectArgs;
+                //在背包中显示添加的物品
+
+                break;
+        }
+    }
+
+    public void showInfoPanel() 
+    {
+
+    }
+}

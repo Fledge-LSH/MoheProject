@@ -23,6 +23,7 @@ public class M_Bag : Model
 
     //当前背包剩余格子数
     int Current_Capacity;
+
     #endregion
 
     #region 属性
@@ -87,6 +88,7 @@ public class M_Bag : Model
     {
         //计算多出来的装不下的物品数量
         int o=0;
+
         //1、判断背包是否满了
         if (Is_MaxCapacity)
         {
@@ -128,13 +130,24 @@ public class M_Bag : Model
                 {
                     Grid gri1 = new Grid(obj, s);
                     m_Grid.Add(gri1);
+
+                    AddObjectArgs e1 = new AddObjectArgs();
+                    e1.objID = obj.ID;
+                    e1.count = s;
+                    SendEvent(Consts.E_AddObject, e1);
                     return o;
                 }
                 Grid gri2 = new Grid(obj, g.Max_Count);
                 m_Grid.Add(gri2);
+
+                //发送添加物品事件
+                AddObjectArgs e2 = new AddObjectArgs();
+                e2.objID = obj.ID;
+                e2.count = g.Max_Count;
+                SendEvent(Consts.E_AddObject,e2);
             }
         }
-        //2、判断背包中是否已经有了该物体并且未存满格子
+        //3、判断背包中是否已经有了该物体并且未存满格子
         foreach (Grid g in m_Grid) 
         {
             if (g.Gobj.ID == obj.ID && g.Cur_Count < g.Max_Count)
@@ -171,10 +184,22 @@ public class M_Bag : Model
                         //到了最后一个格子
                         Grid gri1 = new Grid(obj, s);
                         m_Grid.Add(gri1);
+
+                        //发送添加物品事件
+                        AddObjectArgs e3 = new AddObjectArgs();
+                        e3.objID = obj.ID;
+                        e3.count = s;
+                        SendEvent(Consts.E_AddObject, e3);
                         return o;
                     }
                     Grid gri2 = new Grid(obj, g.Max_Count);
                     m_Grid.Add(gri2);
+
+                    //发送添加物品事件
+                    AddObjectArgs e4 = new AddObjectArgs();
+                    e4.objID = obj.ID;
+                    e4.count = g.Max_Count;
+                    SendEvent(Consts.E_AddObject, e4);
                 }
                 break;
             }
@@ -202,28 +227,59 @@ public class M_Bag : Model
                     {
                         Grid gri1 = new Grid(obj, s);
                         m_Grid.Add(gri1);
+
+                        //发送添加物品事件
+                        AddObjectArgs e5 = new AddObjectArgs();
+                        e5.objID = obj.ID;
+                        e5.count = s;
+                        SendEvent(Consts.E_AddObject, e5);
                         return o;
                     }
                     Grid gri2 = new Grid(obj, g.Max_Count);
                     m_Grid.Add(gri2);
+
+                    //发送添加物品事件
+                    AddObjectArgs e6 = new AddObjectArgs();
+                    e6.objID = obj.ID;
+                    e6.count = g.Max_Count;
+                    SendEvent(Consts.E_AddObject, e6);
                 }
             }
         }
         return o;
     }
+
     //2.获取物品信息
-    public ObjectInfo GetObjectInfo(Grid grid) 
+    public ObjectInfo GetObjectInfo(G_Object obj) 
     {
-        ObjectInfo objInfo = new ObjectInfo();
-        return  objInfo;
+        return null;
     }
-    //3.取出物品
-    public G_Object GetObject(string Name,int Count=1) 
+    //3.取出格子里面物品
+    public G_Object GetObject(Grid g,int Count=1) 
     {
-        G_Object obj=null;
-        return obj;
+        //判断数量
+        if (Count >= g.Cur_Count)
+        {
+            g.Gobj.Count = g.Cur_Count;
+            return g.Gobj;
+            //回收格子
+
+        }
+        else 
+        {
+            g.Gobj.Count = Count;
+            g.Cur_Count -= Count;
+        }
+        return g.Gobj;
     }
-    //4.移除物品
+    //4.移除选中格子中的物品
+    public G_Object remove(Grid g) 
+    {
+        g.Gobj.Count = g.Cur_Count;
+        return g.Gobj;
+        //回收该格子
+
+    }
     #endregion
 
     #region unity回调

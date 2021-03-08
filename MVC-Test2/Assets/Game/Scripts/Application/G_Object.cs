@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class G_Object: UnityEngine.Object
+public abstract class G_Object: ReusableObject
 {
     string name;
     int id;

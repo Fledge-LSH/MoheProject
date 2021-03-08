@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Grid
+public class Grid:ReusableObject
 {
     //格子存储的物品
     public G_Object Gobj;
