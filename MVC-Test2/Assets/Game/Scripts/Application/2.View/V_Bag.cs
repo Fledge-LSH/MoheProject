@@ -13,10 +13,19 @@ public class V_Bag : View
 
     void LoadObject() 
     {
+        
+
         M_Bag mbag = GetModel<M_Bag>();
         foreach (Grid g in mbag.m_Grid) 
         {
+            foreach(ObjectInfo objInfo in StaticData.objectInfo.Values)
+            {
+                if (g.Gobj.ID==objInfo.ID)
+                { 
+                    //找到物品信息
 
+                }
+            }
         }
     }
     public override void RegisterEvents() 

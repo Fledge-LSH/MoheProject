@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class StaticData:Singleton<StaticData>
 {
-    public Dictionary<int,ObjectInfo> objectInfo = new Dictionary<int,ObjectInfo>();
+    public static Dictionary<int,ObjectInfo> objectInfo = new Dictionary<int,ObjectInfo>();
 
     protected override void Awake()
     {
