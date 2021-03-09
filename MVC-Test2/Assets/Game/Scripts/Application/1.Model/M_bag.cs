@@ -16,7 +16,7 @@ public class M_Bag : Model
     public Dictionary<int, G_Object> m_Bag = new Dictionary<int, G_Object>();
 
     //背包格子
-    List<Grid> m_Grid = new List<Grid>();
+    public List<Grid> m_Grid = new List<Grid>();
 
     //最大格子个数
     int Max_Capacity;

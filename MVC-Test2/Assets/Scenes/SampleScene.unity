@@ -977,6 +977,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: grid
       objectReference: {fileID: 0}
+    - target: {fileID: 5443609180881819088, guid: 1882599e52bebb2449babde136ce511d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6092231014015023292, guid: 1882599e52bebb2449babde136ce511d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6520765174534301204, guid: 1882599e52bebb2449babde136ce511d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1882599e52bebb2449babde136ce511d, type: 3}
 --- !u!224 &190811343415383489 stripped

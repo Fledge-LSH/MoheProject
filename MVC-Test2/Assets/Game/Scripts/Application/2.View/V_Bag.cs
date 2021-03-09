@@ -13,7 +13,11 @@ public class V_Bag : View
 
     void LoadObject() 
     {
+        M_Bag mbag = GetModel<M_Bag>();
+        foreach (Grid g in mbag.m_Grid) 
+        {
 
+        }
     }
     public override void RegisterEvents() 
     {

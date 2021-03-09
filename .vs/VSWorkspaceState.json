@@ -5,8 +5,12 @@
     "\\MVC-Test2\\Assets",
     "\\MVC-Test2\\Assets\\Game",
     "\\MVC-Test2\\Assets\\Game\\Scripts",
+    "\\MVC-Test2\\Assets\\Game\\Scripts\\Application",
+    "\\MVC-Test2\\Assets\\Game\\Scripts\\Application\\1.Model",
+    "\\MVC-Test2\\Assets\\Game\\Scripts\\Application\\2.View",
+    "\\MVC-Test2\\Assets\\Game\\Scripts\\Application\\Data",
     "\\MVC-Test2\\Assets\\Game\\Scripts\\Framework"
   ],
-  "SelectedNode": "\\MVC-Test2\\Assets\\Game\\Scripts",
+  "SelectedNode": "\\MVC-Test2\\Assets\\Game\\Scripts\\Application\\2.View\\V_Bag.cs",
   "PreviewInSolutionExplorer": false
 }
