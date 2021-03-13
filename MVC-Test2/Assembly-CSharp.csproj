@@ -71,9 +71,10 @@
     <Compile Include="Assets\Game\Scripts\Application\Args\AddObjectArgs.cs" />
     <Compile Include="Assets\Game\Scripts\Application\Consts.cs" />
     <Compile Include="Assets\Game\Scripts\Application\Data\Grid.cs" />
-    <Compile Include="Assets\Game\Scripts\Application\G_Object.cs" />
     <Compile Include="Assets\Game\Scripts\Application\Game.cs" />
-    <Compile Include="Assets\Game\Scripts\Application\Object\Book.cs" />
+    <Compile Include="Assets\Game\Scripts\Application\Misc\Grid_Mono.cs" />
+    <Compile Include="Assets\Game\Scripts\Application\Misc\Tools.cs" />
+    <Compile Include="Assets\Game\Scripts\Application\Object\G_Object.cs" />
     <Compile Include="Assets\Game\Scripts\Application\StaticData\ObjectInfo.cs" />
     <Compile Include="Assets\Game\Scripts\Application\StaticData\StaticData.cs" />
     <Compile Include="Assets\Game\Scripts\Application\Useable.cs" />
@@ -97,6 +98,7 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\Resources\ObjectInfo.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />

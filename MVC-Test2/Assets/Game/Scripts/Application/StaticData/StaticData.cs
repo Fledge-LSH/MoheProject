@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class StaticData:Singleton<StaticData>
 {
-    public static Dictionary<int,ObjectInfo> objectInfo = new Dictionary<int,ObjectInfo>();
+    public static Dictionary<int ,ObjectInfo> objectInfo = new Dictionary<int,ObjectInfo>();
 
     protected override void Awake()
     {
@@ -12,11 +12,16 @@ public class StaticData:Singleton<StaticData>
     }
 
     //初始化物品信息
-    void ObjectInfoInit() 
+    public void ObjectInfoInit() 
     {
-        objectInfo.Add(0, new ObjectInfo() { ID = 0, info = "这是一本魔法书", imgName="book" });
-        objectInfo.Add(1, new ObjectInfo() { ID = 1, info = "这是一瓶药水", imgName = "drug" });
-        objectInfo.Add(2, new ObjectInfo() { ID = 2, info = "这是一个钥匙", imgName = "key" });
-        objectInfo.Add(3, new ObjectInfo() { ID = 3, info = "这是一张地图", imgName = "map" });
+        //读表
+        Tools.LoadObjectInfo();
+
+        //objectInfo.Add(0, new ObjectInfo() { ID = 0, objName = "book" , info = "这是一本魔法书", IconName="book" });
+        //objectInfo.Add(1, new ObjectInfo() { ID = 1, objName = "drug"   , info = "这是一瓶药水", IconName = "drug" });
+        //objectInfo.Add(2, new ObjectInfo() { ID = 2, objName = "key"   , info = "这是一个钥匙", IconName = "key" });
+        //objectInfo.Add(3, new ObjectInfo() { ID = 3, objName = "map"   , info = "这是一张地图", IconName = "map" });
     }
+
+
 }

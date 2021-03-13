@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(StaticData))]
 public class Game:ApplicationBase<Game>
@@ -14,7 +15,7 @@ public class Game:ApplicationBase<Game>
 
         //注册启动命令
         RegisterController(Consts.E_StartUp, typeof(StartUpCommand));
-
+        SendEvent(Consts.E_StartUp);
 
 
     }

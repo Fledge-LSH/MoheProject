@@ -1,0 +1,15 @@
+0	TaiLa	泰拉之刃	Eqiup	这是一把泰拉之刃	10	1000	
+1	ZhenYongYe	真永夜之刃	Eqiup	这是一把真永夜之刃	20	980	
+2	BianTaiDao	变态刀	Eqiup	这是一把变态刀	5	500	
+3	HeiSeMoShui	黑色墨水	Mat	用来做制作黑色染料		50	
+4	FenSeXianRenZhang	粉色的仙人球	Mat	用来制作粉色染料		50	
+5	LanJiangGuo	蓝浆果	Mat	用来制作蓝色染料		60	
+6	MianHuaTang	棉花糖	Mat	可用来吃		40	
+7	MoFaShu	魔法书	Mat	诅咒、水晶风暴和黄金喷头的材料			
+8	PoXiao	破晓	Eqiup	这是一把破晓剑	25	850	
+9	TianLanSeDeHua	天蓝色的花	Mat	用来制作天蓝色染料		40	
+10	ChongDongYaoShui	虫洞药剂	Drug	将角色传送到地图上的指定地点		120	0
+11	HongYaoShui	红药水	Drug	增加生命值		100	20
+12	BianXingYaoShui	变性药水	Drug	改变角色性别		150	0
+13	PanDuiPing	派对瓶	Drug	武器附魔彩纸，持续20分钟		90	0
+14	XueQiuDaPao	雪球大炮	Eqiup	以雪球作为弹药和武器	23	950	
