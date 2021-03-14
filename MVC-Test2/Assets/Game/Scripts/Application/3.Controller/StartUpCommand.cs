@@ -11,16 +11,13 @@ public class StartUpCommand : Controller
         RegisterModel(new M_Bag());
         //注册视图
         RegisterView(GameObject.Find("Bag").GetComponent<V_Bag>());
+
         M_Bag mbag = GetModel<M_Bag>();
+        V_Bag vbag = GetView<V_Bag>();
 
-        G_Object book = GameObject.Find("book").GetComponent<G_Object>();
-        G_Object map = GameObject.Find("map").GetComponent<G_Object>();
-        G_Object key = GameObject.Find("key").GetComponent<G_Object>();
-        G_Object drug = GameObject.Find("drug").GetComponent<G_Object>();
+        mbag.InitMBag();//初始化背包模型
+        vbag.InitVBag();//初始化背包视图
 
-
-
-        mbag.InitBag();
         //mbag.m_Grid[0].objName = book.name;
         //mbag.m_Grid[0].Cur_Count = 15;
 
@@ -32,39 +29,46 @@ public class StartUpCommand : Controller
             Debug.Log(gri.IsEmpty);
         }
 
-        //添加物品
-        mbag.addobj(book, 58);
-        mbag.addobj(key, 22);
-        mbag.addobj(map, 13);
-        mbag.addobj(map, 15);
-        mbag.addobj(drug);
-        mbag.addobj(drug, 46);
+        //创建一些物品
+        GameObject g1= Game.Instance.ObjectPool.OnSpawn("泰拉之刃");
+        GameObject g2 = Game.Instance.ObjectPool.OnSpawn("真永夜之刃");
+        GameObject g3 = Game.Instance.ObjectPool.OnSpawn("红药水");
+        GameObject g4 = Game.Instance.ObjectPool.OnSpawn("雪球大炮");
+        GameObject g5 = Game.Instance.ObjectPool.OnSpawn("变性药水");
+        GameObject g6 = Game.Instance.ObjectPool.OnSpawn("变态刀");
 
-        Debug.Log(mbag.m_Grid[0].IsEmpty);
-        Debug.Log(mbag.m_Grid[6].IsEmpty);
+        //添加物品
+        mbag.addobj(g1);
+        mbag.addobj(g2);
+        mbag.addobj(g3,50);
+        mbag.addobj(g4);
+        mbag.addobj(g5,100);
+        mbag.addobj(g6);
 
         //取出物品
         mbag.GetObject(mbag.m_Grid[0], 10);
-        mbag.GetObject(mbag.m_Grid[6], 4);
+        mbag.GetObject(mbag.m_Grid[2], 4);
 
         //移除格子中的物品
-        mbag.remove(mbag.m_Grid[7]);
-        Debug.Log("mbag.m_Grid[7]:"+ mbag.m_Grid[7].IsEmpty);
+        mbag.remove(mbag.m_Grid[3]);
+        Debug.Log("mbag.m_Grid[3] is empty?:" + mbag.m_Grid[3].IsEmpty);
 
-        ////查看物品信息
-        //ObjectInfo o = mbag.GetObjectInfo(drug);
-        //if (o!=null) 
-        //{
-        //    Debug.Log("物品名字：" + o.objName + "\r\n" + "物品ID：" + o.ID + "\r\n" + "物品信息：" + o.info);
-        //}
-
-        foreach (KeyValuePair<int,ObjectInfo> o in StaticData.objectInfo) 
+        //查看物品信息
+        ObjectInfo j = mbag.GetGridObjectInfo(mbag.m_Grid[4]);
+        if (j != null)
         {
-            Debug.Log("物品名称："+o.Value.objName+"   物品ID："+o.Value.ID+"   物品类型："+o.Value.type+"   基本信息："+o.Value.info+"\r\n");
+            Debug.Log("物品名字：" + j.objName + "\r\n" + "物品ID：" + j.ID + "\r\n" + "物品信息：" + j.info);
         }
 
+        //foreach (KeyValuePair<int,ObjectInfo> o in StaticData.objectInfo) 
+        //{
+        //    Debug.Log("物品名称："+o.Value.objName+"   物品ID："+o.Value.ID+"   物品类型："+o.Value.type+"   基本信息："+o.Value.info+"\r\n");
+        //}
+
+       // mbag.Sort();
         //获取视图
-        V_Bag vbag = GetView<V_Bag>();
+        vbag = GetView<V_Bag>();
+
         //更新视图
         vbag.refreshBag();
     }

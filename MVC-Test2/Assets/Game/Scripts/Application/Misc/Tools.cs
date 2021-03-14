@@ -10,18 +10,18 @@ using System.Xml;
 public class Tools
 {
 
-    //读取物品信息
+    //加载物品信息
     public static void LoadObjectInfo() 
     {
         TextAsset objectInfoListText;//新建TextAsset变量
-        objectInfoListText = Resources.Load("ObjectInfo")as TextAsset;
+        objectInfoListText = Resources.Load("InfoFiles/ObjectInfo1") as TextAsset;
         string text = objectInfoListText.text;
         string[] objInfoArray = text.Split('\n');//以\n为分割符将文本分割为一个数组
         foreach (string str in objInfoArray) //遍历每一行并将每一个物品信息放入到类中
         {
             ObjectInfo info = new ObjectInfo();
             string[] propertyArray = str.Split('\t');//通过Tab键分割
-            Debug.Log(propertyArray[0]);
+            Debug.Log("第一个"+ propertyArray[0]);
             int id = int.Parse(propertyArray[0]);
             string iconNamge = propertyArray[1];
             string Name = propertyArray[2];

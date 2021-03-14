@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class V_Bag : View
 {
+
     int capacity;
     List<Grid> grid;
     public GameObject panel;
@@ -28,11 +29,36 @@ public class V_Bag : View
     #endregion
 
     #region 方法
-    //显示信息面板
-    public void ShowInfoPanel() 
+
+    public void InitVBag() 
     {
-        InfoPanel.SetActive(true);
+        //
     }
+
+    //显示信息面板
+    public void ShowInfoPanel(int index) 
+    {
+        M_Bag mbag = GetModel<M_Bag>();
+        ObjectInfo objinfo;
+        //如果格子为空则返回
+        if (mbag.m_Grid[index].IsEmpty) 
+        {
+            HideInfoPanel();
+            return;
+        }
+        //先显示信息
+        InfoPanel.SetActive(true);
+
+        //加载物品信息
+        objinfo = Game.Instance.StaticData.GetObjectInfo(mbag.m_Grid[index].objId);
+
+        Transform t1= InfoPanel.transform.Find("title");
+        t1.transform.GetComponent<Text>().text = objinfo.objName;
+
+        Transform t2 = InfoPanel.transform.Find("info");
+        t2.transform.GetComponent<Text>().text = objinfo.info;
+    }
+
     //隐藏信息面板
     public void HideInfoPanel() 
     {
@@ -80,9 +106,9 @@ public class V_Bag : View
             if (grid[i].IsEmpty==true)
                 //如果该格子是空的 则跳过
                 continue;
-
+            ObjectInfo objinfo = Game.Instance.StaticData.GetObjectInfo(grid[i].objId);
             //获取物品图片路径
-            string path = "file://" + Consts.G_objectDir + "/" + grid[i].objName + ".png";
+            string path = "file://" + Consts.G_objectImageDir + "/" + objinfo.objName + ".jpg";
             //获取UI中的Image
             Transform imgTran = P_Child[i].transform.Find("Image");
             Image im = imgTran.transform.GetComponent<Image>();
@@ -96,6 +122,9 @@ public class V_Bag : View
             TexTran.transform.GetComponent<Text>().text = str;
         }
     }
+    #endregion
+
+    #region unity回调
     #endregion
     public override void RegisterEvents() 
     {
@@ -111,11 +140,6 @@ public class V_Bag : View
 
                 break;
         }
-    }
-
-    public void showInfoPanel() 
-    {
-
     }
 
 }

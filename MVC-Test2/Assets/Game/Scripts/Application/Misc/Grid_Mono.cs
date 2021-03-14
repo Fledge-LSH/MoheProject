@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Grid_Mono : MonoBehaviour
 {
+    public int GridIndex;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public class Grid_Mono : MonoBehaviour
 
     public void Onclick() 
     {
-        SendMessageUpwards("ShowInfoPanel",SendMessageOptions.RequireReceiver);
+        SendMessageUpwards("ShowInfoPanel",GridIndex,SendMessageOptions.RequireReceiver);
     }
 }

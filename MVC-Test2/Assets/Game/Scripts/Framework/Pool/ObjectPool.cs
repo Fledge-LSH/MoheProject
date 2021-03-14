@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool
+public class ObjectPool:Singleton<ObjectPool>
 {
     //资源目录
-    public string ResourceDir = "";
+    public string ResourceDir = "Prefabs/G_objects";
 
     //集合
     Dictionary<string, SubPool> m_pools = new Dictionary<string, SubPool>();
@@ -22,7 +22,7 @@ public class ObjectPool
         return pool.OnSpawn();
     }
     //回收对象
-    void UnOnspwan(GameObject go) 
+    public void UnOnspwan(GameObject go) 
     {
         SubPool pool = null;
         foreach (SubPool p in m_pools.Values) 
@@ -53,6 +53,8 @@ public class ObjectPool
             path = name;
         else 
             path = ResourceDir + "/" + name;
+
+        Debug.Log(path);
 
         //加载预设
         GameObject go = Resources.Load<GameObject>(path);

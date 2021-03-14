@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class StaticData:Singleton<StaticData>
 {
@@ -21,6 +22,22 @@ public class StaticData:Singleton<StaticData>
         //objectInfo.Add(1, new ObjectInfo() { ID = 1, objName = "drug"   , info = "这是一瓶药水", IconName = "drug" });
         //objectInfo.Add(2, new ObjectInfo() { ID = 2, objName = "key"   , info = "这是一个钥匙", IconName = "key" });
         //objectInfo.Add(3, new ObjectInfo() { ID = 3, objName = "map"   , info = "这是一张地图", IconName = "map" });
+    }
+
+    //获取物体信息
+    public ObjectInfo GetObjectInfo(int id) 
+    {
+        ObjectInfo objInfo;
+        //遍历物品信息字典
+        foreach (ObjectInfo info in StaticData.objectInfo.Values)
+        {
+            if (info.ID == id)
+            {
+                objInfo = info;
+                return objInfo;
+            }
+        }
+        return null;
     }
 
 

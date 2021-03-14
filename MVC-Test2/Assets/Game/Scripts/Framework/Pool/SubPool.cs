@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SubPool
 {
-    Transform m_parent;
+    //Transform m_parent;
 
     //名字标识
     public string Name 
@@ -39,7 +39,8 @@ public class SubPool
         if (go==null) 
         {
             go = GameObject.Instantiate<GameObject>(m_prefab);
-            go.transform.parent = m_parent;
+            Debug.Log("执行到这里了"); 
+            //go.transform.parent = m_parent;
             m_objects.Add(go);
         }
 

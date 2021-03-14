@@ -2,12 +2,8 @@
 
 public class Grid
 {
-    //格子存储的物品
-    public string objName;
-
     public int objId;
 
-    public ObjectType objType;
     //当前存储的数量 默认为零
     int Count;
     //格子最大容量
@@ -27,7 +23,6 @@ public class Grid
         //初始化格子时，格子状态为空
         IsEmpty = true;
         objId = -1;
-        objType = ObjectType.Mat;
         Max_Count = 20;
     }
 
@@ -57,8 +52,8 @@ public class Grid
             //当格子设置为空时
             if (value==true) 
             {
-                objName = "";
-                Cur_Count = 0;
+                objId = -1;
+                Max_Count = 20;
             }
         }
     }

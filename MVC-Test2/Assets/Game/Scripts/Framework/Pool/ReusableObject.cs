@@ -5,11 +5,11 @@ public abstract class ReusableObject : MonoBehaviour, IReusable
 {
     public void OnSpawn()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public void UnOnspawn()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 }

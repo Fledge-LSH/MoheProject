@@ -83,7 +83,7 @@ public class M_Bag : Model
     #endregion
 
     #region 方法
-    public void InitBag() 
+    public void InitMBag() 
     {
         //初始化背包
         MaxCapacity = 25;
@@ -102,22 +102,34 @@ public class M_Bag : Model
     }
 
     //查找背包中存储obj物品的格子中剩余未使用的个数总数
-    int RemainCapacity(G_Object obj) 
+    int RemainCapacity(GameObject obj) 
     {
+        G_Object gobj = obj.GetComponent<G_Object>();
         int r=0;
         foreach (Grid g in m_Grid) 
         {
-            if (g.objName == obj.name)
+            ObjectInfo objinfo = GetGridObjectInfo(g);
+            if (g.objId == gobj.ID)
                 r += (g.Max_Count-g.Cur_Count);
         }
         return r;
     }
 
     //添加物品
-    public int addobj(G_Object obj, int count = 1)
+    public int addobj(GameObject obj, int count = 1)
     {
         Grid g = new Grid();
         g.InitGrid();
+        ObjectInfo objinfo=null;
+        G_Object gobj = obj.GetComponent<G_Object>();
+        //通过物品ID找到物品信息
+        foreach (ObjectInfo info in StaticData.objectInfo.Values)
+        {
+            if (info.ID == gobj.ID)
+            {
+                objinfo = info;
+            }
+        }
 
         int o;//返回值
 
@@ -163,7 +175,7 @@ public class M_Bag : Model
             {
                 if (t == 1 && s != 0)
                 {
-                    m_Grid[i].objName = obj.name;
+                    m_Grid[i].objId = objinfo.ID;
                     m_Grid[i].Cur_Count = s;
                     //格子不为空
                     m_Grid[i].IsEmpty = false;
@@ -173,7 +185,7 @@ public class M_Bag : Model
                 }
                 else if (t == 1 && s == 0)
                 {
-                    m_Grid[i].objName = obj.name;
+                    m_Grid[i].objId = objinfo.ID;
                     m_Grid[i].Cur_Count = m_Grid[i].Max_Count;
                     //格子不为空
                     m_Grid[i].IsEmpty = false;
@@ -181,7 +193,8 @@ public class M_Bag : Model
                     t = 0;
                     break;
                 }
-                m_Grid[i].objName = obj.name;
+
+                m_Grid[i].objId = objinfo.ID;
                 m_Grid[i].Cur_Count = m_Grid[i].Max_Count;
                 //格子不为空
                 m_Grid[i].IsEmpty = false;
@@ -203,7 +216,7 @@ public class M_Bag : Model
                     continue;
 
                 //找到该物体
-                if (gri.objName == obj.name)
+                if (gri.objId == gobj.ID)
                 {
                     if (count > gri.Remain_Cpacity)
                     {
@@ -237,7 +250,7 @@ public class M_Bag : Model
                     if (count > gri.Max_Count)
                     {
                         count -= gri.Max_Count;
-                        gri.objName = obj.name;
+                        gri.objId = objinfo.ID;
                         gri.Cur_Count = MaxCapacity;
                         //格子不为空
                         gri.IsEmpty = false;
@@ -245,7 +258,7 @@ public class M_Bag : Model
                     }
                     else 
                     {
-                        gri.objName = obj.name;
+                        gri.objId = objinfo.ID;
                         gri.Cur_Count += count;
                         //格子不为空
                         gri.IsEmpty = false;
@@ -260,192 +273,15 @@ public class M_Bag : Model
         return o;
     }
 
-
-    //1.添加物品（弃）
-    //public int addObject(G_Object obj,int count=1)
-    //{
-    //    //计算多出来的装不下的物品数量
-    //    int o=0;
-
-    //    //1、判断背包是否满了
-    //    if (Is_MaxCapacity)
-    //    {
-    //        //全部返回
-    //        o = count;
-    //        return o;
-    //    }
-    //    //2、判断背包是否是空的 是否为第一次添加东西
-    //    if (Is_Empty) 
-    //    {
-    //        Grid g=new Grid(obj.name);
-    //        //计算出所需格子数t
-    //        int sum = (g.Cur_Count + count)-1;
-    //        int t = sum / g.Max_Count;
-    //        int s = sum % g.Max_Count;
-    //        if (s > 0)
-    //        {
-    //            t++;
-    //        }
-    //        //判断所需格子数是否超过背包容量
-    //        if (t > CurrentCapacity)
-    //        {
-    //            o = (t - CurrentCapacity-1) * g.Max_Count + s;
-    //            t = CurrentCapacity;
-    //        }
-    //        //重新计算当前背包剩余容量
-    //        CurrentCapacity -= t;
-    //        //判断所需格子数是否大于1 把刚刚创建的格子填满并加入到队列中
-    //        if (t > 1)
-    //        {
-    //            //t--;
-
-    //            for (int i=0;i<t;i++) 
-    //            {
-    //                m_Grid[i].objName = obj.name;
-    //                m_Grid[i].Cur_Count = count;
-    //            }
-
-    //            //g.Cur_Count = g.Max_Count;
-    //            //m_Grid.Add(g);
-    //        }
-    //        //创建格子存储物品
-    //        for (int i = 1; i <= t; i++)
-    //        {
-    //            if (i == t)
-    //            {
-    //                Grid gri1 = new Grid(obj.name, s);
-    //                m_Grid.Add(gri1);
-
-    //                AddObjectArgs e1 = new AddObjectArgs();
-    //                e1.objID = obj.ID;
-    //                e1.count = s;
-    //                SendEvent(Consts.E_AddObject, e1);
-    //                return o;
-    //            }
-    //            Grid gri2 = new Grid(obj.name, g.Max_Count);
-    //            m_Grid.Add(gri2);
-
-    //            //发送添加物品事件
-    //            AddObjectArgs e2 = new AddObjectArgs();
-    //            e2.objID = obj.ID;
-    //            e2.count = g.Max_Count;
-    //            SendEvent(Consts.E_AddObject,e2);
-    //        }
-    //    }
-    //    //3、判断背包中是否已经有了该物体并且未存满格子
-    //    foreach (Grid g in m_Grid) 
-    //    {
-    //        if (g.objName == obj.name && g.Cur_Count < g.Max_Count)
-    //        {
-    //            //计算出未满格子中物体的数量并且加上需要增加的个数
-    //            int sum = g.Cur_Count + count;
-    //            int t = sum / g.Max_Count;
-    //            int s = sum % g.Max_Count;
-    //            //算出需要的格子个数
-    //            if (s > 0)
-    //            {
-    //                t++;
-    //            }
-    //            //如果需要一个以上的格子
-    //            if (t>1) 
-    //            {
-    //                //将原先未填满格子排除 并且填满该格子
-    //                t--;
-    //                g.Cur_Count = g.Max_Count;
-    //            }
-    //            //如果所需格子数大于背包剩余容量
-    //            if (t > Current_Capacity)
-    //            {
-    //                o = (t - CurrentCapacity - 1) * g.Max_Count + s;
-    //                t = CurrentCapacity;
-    //            }
-    //            //重新计算当前背包剩余容量
-    //            Current_Capacity -= t;
-    //            //需要创建t个格子存储物品
-    //            for (int i = 1; i <= t; i++)
-    //            {
-    //                if (i == t)
-    //                {
-    //                    //到了最后一个格子
-    //                    Grid gri1 = new Grid(obj.name, s);
-    //                    m_Grid.Add(gri1);
-
-    //                    //发送添加物品事件
-    //                    AddObjectArgs e3 = new AddObjectArgs();
-    //                    e3.objID = obj.ID;
-    //                    e3.count = s;
-    //                    SendEvent(Consts.E_AddObject, e3);
-    //                    return o;
-    //                }
-    //                Grid gri2 = new Grid(obj.name, g.Max_Count);
-    //                m_Grid.Add(gri2);
-
-    //                //发送添加物品事件
-    //                AddObjectArgs e4 = new AddObjectArgs();
-    //                e4.objID = obj.ID;
-    //                e4.count = g.Max_Count;
-    //                SendEvent(Consts.E_AddObject, e4);
-    //            }
-    //            break;
-    //        }
-    //        else if(g == m_Grid.Last())
-    //        {
-    //            int sum = count;
-    //            int t = sum / g.Max_Count;
-    //            int s = sum % g.Max_Count;
-    //            //算出需要的格子个数
-    //            if (s > 0)
-    //            {
-    //                t++;
-    //            }
-    //            if (t > Current_Capacity)
-    //            {
-    //                 o = (t - CurrentCapacity-1) * g.Max_Count + s;
-    //                t = CurrentCapacity;
-    //            }
-    //            //重新计算当前背包剩余容量
-    //            CurrentCapacity -= t;
-    //            //创建格子存储物品
-    //            for (int i = 1; i <= t; i++)
-    //            {
-    //                if (i == t)
-    //                {
-    //                    Grid gri1 = new Grid(obj.name, s);
-    //                    m_Grid.Add(gri1);
-
-    //                    //发送添加物品事件
-    //                    AddObjectArgs e5 = new AddObjectArgs();
-    //                    e5.objID = obj.ID;
-    //                    e5.count = s;
-    //                    SendEvent(Consts.E_AddObject, e5);
-    //                    return o;
-    //                }
-    //                Grid gri2 = new Grid(obj.name, g.Max_Count);
-    //                m_Grid.Add(gri2);
-
-    //                //发送添加物品事件
-    //                AddObjectArgs e6 = new AddObjectArgs();
-    //                e6.objID = obj.ID;
-    //                e6.count = g.Max_Count;
-    //                SendEvent(Consts.E_AddObject, e6);
-    //            }
-    //        }
-    //    }
-    //    return o;
-    //}
-
-    //2.获取物品信息
-
-    //获取物品信息
-    public ObjectInfo GetObjectInfo(G_Object obj) 
+    public ObjectInfo GetGridObjectInfo(Grid gri) 
     {
         ObjectInfo objInfo;
         //遍历物品信息字典
-        foreach (KeyValuePair<int,ObjectInfo> o in StaticData.objectInfo) 
+        foreach (ObjectInfo info in StaticData.objectInfo.Values) 
         {
-            if (o.Value.objName == obj.name) 
+            if (info.ID==gri.objId) 
             {
-                objInfo = o.Value;
+                objInfo = info;
                 return objInfo;
             }
         }
@@ -453,43 +289,48 @@ public class M_Bag : Model
     }
 
     //取出格子里面物品
-    public G_Object GetObject(Grid g,int Count=1) 
+    public GameObject GetObject(Grid g,int Count=1) 
     {
+        ObjectInfo objinfo=null;
         //判断格子是否为空
         if (g.IsEmpty) 
         {
             return null;
         }
-        G_Object go=new G_Object(g.objName,1);
+
+        objinfo = GetGridObjectInfo(g);
+        //从对象池中取出
+        GameObject go = Game.Instance.ObjectPool.OnSpawn(objinfo.objName);
+
         //判断数量
         if (Count>=g.Cur_Count) 
         {
             //如果取出物品个数大于等于格子内个数 置空格子
             Count = g.Cur_Count;
-            go.Count = Count;
+            go.GetComponent<G_Object>().Count = Count;
             g.IsEmpty = true;
             return go;
         }
 
-        go.Count = Count;
+        go.GetComponent<G_Object>().Count = Count;
         g.Cur_Count -= Count;
 
         return go;
     }
 
     //移除选中格子中的物品
-    public G_Object remove(Grid g) 
+    public GameObject remove(Grid g) 
     {
+        ObjectInfo objinfo = null;
         //首先判断该格子是否为空
-        if (!g.IsEmpty)
-        {
-            G_Object go = new G_Object(g.objName, g.Cur_Count);
-            //格子置空
-            g.IsEmpty = true;
-            return go;
-        }
-        else
+        if (g.IsEmpty)
             return null;
+
+        objinfo = GetGridObjectInfo(g);
+        GameObject go = Game.Instance.ObjectPool.OnSpawn(objinfo.objName);
+        //格子置空
+        g.IsEmpty = true;
+        return go;
     }
 
     //背包按ID排序
@@ -513,11 +354,18 @@ public class M_Bag : Model
     //背包按类型排序
     public void TypeSort() 
     {
+        ObjectInfo objinfo = null;
         int m1=0, e1=0, d1=0;//用来记录背包中三种类型物品的个数
         //遍历集合，计算每种类型物品的个数
         foreach (Grid gri in m_Grid) 
         {
-            switch (gri.objType) 
+            objinfo = GetGridObjectInfo(gri);
+
+            //如果为空则跳过
+            if (objinfo==null) 
+                continue;
+
+            switch (objinfo.type) 
             {
                 case ObjectType.Mat:
                     m1++;
@@ -536,7 +384,13 @@ public class M_Bag : Model
         int m2 = 0, e2 = 0, d2 = 0;//记录三种类型物品已添加个数
         foreach (Grid gri2 in m_Grid) 
         {
-            switch (gri2.objType)
+            objinfo = GetGridObjectInfo(gri2);
+
+            //如果为空则跳过
+            if (objinfo == null)
+                continue;
+
+            switch (objinfo.type)
             {
                 case ObjectType.Mat:
                     mgri[m2] = gri2;
